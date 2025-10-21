@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function useFavorites() {
-  const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem("favorites");
-    return saved ? JSON.parse(saved) : [];
-  });
+export default function useFetchMovies() {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
-
-  const toggleFavorite = (movie) => {
-    setFavorites((prev) => {
-      if (prev.find((m) => m.id === movie.id)) {
-        return prev.filter((m) => m.id !== movie.id);
+    async function fetchMovies() {
+      try {
+        const res = await axios.get("https://api.tvmaze.com/shows");
+        setMovies(res.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-      return [...prev, movie];
-    });
-  };
+    }
 
-  return { favorites, toggleFavorite };
+    fetchMovies();
+  }, []);
+
+  return { movies, loading };
 }
