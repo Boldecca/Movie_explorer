@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function MovieCard({ movie, onAddFavorite, isFavorite }) {
   return (
-    <div className="border p-4 rounded shadow hover:shadow-lg transition">
+    <motion.div
+      className="border p-4 rounded shadow hover:shadow-lg transition cursor-pointer"
+      whileHover={{ scale: 1.05 }}
+    >
       <img src={movie.image?.medium} alt={movie.name} className="w-full h-48 object-cover rounded" />
       <h2 className="text-lg font-bold mt-2">{movie.name}</h2>
       <p className="text-sm">{movie.genres?.join(", ")}</p>
       <div className="mt-2 flex justify-between items-center">
-        <Link
-          to={`/movie/${movie.id}`}
-          className="text-blue-600 hover:underline"
-        >
+        <Link to={`/movie/${movie.id}`} className="text-blue-600 hover:underline">
           Details
         </Link>
         <button
@@ -20,6 +21,6 @@ export default function MovieCard({ movie, onAddFavorite, isFavorite }) {
           {isFavorite ? "Remove" : "Add"}
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }

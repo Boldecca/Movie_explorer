@@ -4,6 +4,7 @@ import CategoryFilter from "../Components/CategoryFilter";
 import useFetchMovies from "../Hooks/useFetchMovies";
 import useFavorites from "../Hooks/useFavorites";
 import { useState } from "react";
+import { motion } from "framer-motion"; // For animations
 
 export default function Home() {
   const { movies, loading } = useFetchMovies();
@@ -29,10 +30,16 @@ export default function Home() {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
+
       {filteredMovies.length === 0 ? (
         <p>No movies found</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           {filteredMovies.map((movie) => (
             <MovieCard
               key={movie.id}
@@ -41,7 +48,7 @@ export default function Home() {
               isFavorite={favorites.some((m) => m.id === movie.id)}
             />
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );
