@@ -1,7 +1,7 @@
 "use client"
 
 import { Link } from "react-router-dom"
-import { useFavorites } from "../hooks/useFavorites"
+import { useFavorites } from "../Hooks/useFavorites"
 
 function MovieCard({ movie }) {
   const { favorites, addFavorite, removeFavorite } = useFavorites()

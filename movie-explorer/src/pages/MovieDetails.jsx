@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { fetchMovieById } from "../utils/api"
-import { useFavorites } from "../hooks/useFavorites"
+import { useFavorites } from "../Hooks/useFavorites"
 
 function MovieDetails() {
   const { id } = useParams()
@@ -18,7 +18,7 @@ function MovieDetails() {
         setLoading(true)
         const data = await fetchMovieById(id)
         setMovie(data)
-      } catch (Error) {
+      } catch (err) {
         setError("Failed to load movie details")
       } finally {
         setLoading(false)

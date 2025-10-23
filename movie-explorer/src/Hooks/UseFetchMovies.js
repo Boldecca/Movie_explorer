@@ -28,3 +28,4 @@ export function useFetchMovies() {
 
   return { movies, loading, error }
 }
+export default useFetchMovies

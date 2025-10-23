@@ -3,7 +3,7 @@
 import { useState } from "react"
 import SearchBar from "../Components/SearchBar"
 import CategoryFilter from "../Components/CategoryFilter"
-import MovieCard from "../components/MovieCard"
+import MovieCard from "../Components/MovieCard"
 import { useFetchMovies } from "../Hooks/UseFetchMovies"
 
 function Home() {

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom"
-import { useFavorites } from "../hooks/useFavorites"
+import { useFavorites } from "../Hooks/useFavorites"
 
 function Navbar() {
   const location = useLocation()
