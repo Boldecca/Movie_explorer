@@ -1,35 +1,29 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { fetchMovieById } from "../utils/api";
+const API_BASE_URL = "https://api.tvmaze.com"
 
-export default function MovieDetails() {
-  const { id } = useParams();
-  const [movie, setMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function getMovie() {
-      try {
-        const data = await fetchMovieById(id);
-        setMovie(data);
-      } catch (error) {
-        console.error("Failed to fetch movie:", error);
-      } finally {
-        setLoading(false);
-      }
+export async function fetchMovies() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/shows`)
+    if (!response.ok) {
+      throw new Error("Failed to fetch movies")
     }
-    getMovie();
-  }, [id]);
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("Error fetching movies:", error)
+    throw error
+  }
+}
 
-  if (loading) return <p>Loading movie details...</p>;
-  if (!movie) return <p>Movie not found.</p>;
-
-  return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold">{movie.name}</h1>
-      <img src={movie.image?.medium} alt={movie.name} className="my-4 rounded" />
-      <p dangerouslySetInnerHTML={{ __html: movie.summary }}></p>
-      <p className="mt-2">Genres: {movie.genres.join(", ")}</p>
-    </div>
-  );
+export async function fetchMovieById(id) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/shows/${id}`)
+    if (!response.ok) {
+      throw new Error("Failed to fetch movie details")
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("Error fetching movie details:", error)
+    throw error
+  }
 }

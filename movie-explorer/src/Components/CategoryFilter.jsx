@@ -1,16 +1,33 @@
-export default function CategoryFilter({ categories, selectedCategory, setSelectedCategory }) {
+"use client"
+
+function CategoryFilter({ selectedCategory, onCategoryChange, categories }) {
   return (
-    <select
-      value={selectedCategory}
-      onChange={(e) => setSelectedCategory(e.target.value)}
-      className="border p-2 rounded mb-4"
-    >
-      <option value="">All Categories</option>
-      {categories.map((cat) => (
-        <option key={cat} value={cat}>
-          {cat}
-        </option>
+    <div className="flex flex-wrap gap-2">
+      <button
+        onClick={() => onCategoryChange("All")}
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+          selectedCategory === "All"
+            ? "bg-blue-600 text-white"
+            : "bg-gray-900 text-gray-400 hover:bg-gray-800 hover:text-white"
+        }`}
+      >
+        All
+      </button>
+      {categories.map((category) => (
+        <button
+          key={category}
+          onClick={() => onCategoryChange(category)}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            selectedCategory === category
+              ? "bg-blue-600 text-white"
+              : "bg-gray-900 text-gray-400 hover:bg-gray-800 hover:text-white"
+          }`}
+        >
+          {category}
+        </button>
       ))}
-    </select>
-  );
+    </div>
+  )
 }
+
+export default CategoryFilter

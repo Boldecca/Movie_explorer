@@ -1,24 +1,30 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+"use client"
 
-export default function useFetchMovies() {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+import { useState, useEffect } from "react"
+import { fetchMovies } from "../utils/api"
+
+export function useFetchMovies() {
+  const [movies, setMovies] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    async function fetchMovies() {
+    const loadMovies = async () => {
       try {
-        const res = await axios.get("https://api.tvmaze.com/shows");
-        setMovies(res.data);
-      } catch (error) {
-        console.error(error);
+        setLoading(true)
+        setError(null)
+        const data = await fetchMovies()
+        setMovies(data)
+      } catch (err) {
+        setError("Failed to load movies. Please try again later.")
+        console.error("Error fetching movies:", err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
 
-    fetchMovies();
-  }, []);
+    loadMovies()
+  }, [])
 
-  return { movies, loading };
+  return { movies, loading, error }
 }
