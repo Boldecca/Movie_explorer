@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import SearchBar from "../Components/SearchBar"
 import CategoryFilter from "../Components/CategoryFilter"

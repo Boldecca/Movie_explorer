@@ -1,20 +1,15 @@
-"use client"
-
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { useFavorites } from "../Hooks/useFavorites"
 
 function MovieCard({ movie }) {
-  const { favorites, addFavorite, removeFavorite } = useFavorites()
-  const isFavorite = favorites.some((fav) => fav.id === movie.id)
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const isFavorite = favorites.some((fav) => fav.id === movie.id);
 
   const handleFavoriteClick = (e) => {
-    e.preventDefault()
-    if (isFavorite) {
-      removeFavorite(movie.id)
-    } else {
-      addFavorite(movie)
-    }
-  }
+    e.stopPropagation(); // prevents Link navigation
+    if (isFavorite) removeFavorite(movie.id);
+    else addFavorite(movie);
+  };
 
   return (
     <Link to={`/movie/${movie.id}`}>
@@ -22,7 +17,7 @@ function MovieCard({ movie }) {
         <div className="aspect-[2/3] overflow-hidden bg-gray-800">
           {movie.image?.medium ? (
             <img
-              src={movie.image.medium || "/placeholder.svg"}
+              src={movie.image.medium ?? "/placeholder.svg"}
               alt={movie.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
@@ -64,7 +59,7 @@ function MovieCard({ movie }) {
               </div>
             )}
           </div>
-          {movie.genres && movie.genres.length > 0 && (
+          {movie.genres?.length > 0 && (
             <div className="mt-2 flex flex-wrap gap-1">
               {movie.genres.slice(0, 2).map((genre) => (
                 <span key={genre} className="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">
@@ -76,7 +71,7 @@ function MovieCard({ movie }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }
 
-export default MovieCard
+export default MovieCard;

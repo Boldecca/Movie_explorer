@@ -1,5 +1,3 @@
-"use client"
-
 function SearchBar({ searchTerm, onSearchChange }) {
   return (
     <div className="w-full max-w-2xl">
