@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { fetchMovieById } from "../utils/api"
-import { useFavorites } from "../Hooks/useFavorites"
+import { useFavorites } from "../context/FavoritesContext"
 
 function MovieDetails() {
   const { id } = useParams()
