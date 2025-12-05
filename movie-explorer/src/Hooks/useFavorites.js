@@ -23,12 +23,16 @@ export function useFavorites() {
   }, [favorites])
 
   const addFavorite = (movie) => {
+    console.log('Adding favorite:', movie)
     setFavorites((prev) => {
       // Prevent duplicates
       if (prev.some((fav) => fav.id === movie.id)) {
+        console.log('Movie already in favorites')
         return prev
       }
-      return [...prev, movie]
+      const newFavorites = [...prev, movie]
+      console.log('New favorites:', newFavorites)
+      return newFavorites
     })
   }
 
