@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import MovieCard from "../Components/MovieCard"
+import MovieCard from "../components/MovieCard"
 import { useFavorites } from "../Hooks/useFavorites"
 
 function Favorites() {

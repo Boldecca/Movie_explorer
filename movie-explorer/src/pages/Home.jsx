@@ -1,8 +1,8 @@
 import { useState } from "react"
-import SearchBar from "../Components/SearchBar"
-import CategoryFilter from "../Components/CategoryFilter"
-import MovieCard from "../Components/MovieCard"
-import { useFetchMovies } from "../Hooks/UseFetchMovies"
+import SearchBar from "../components/SearchBar"
+import CategoryFilter from "../components/CategoryFilter"
+import MovieCard from "../components/MovieCard"
+import { useFetchMovies } from "../Hooks/useFetchMovies"
 
 function Home() {
   const { movies, loading, error } = useFetchMovies()
